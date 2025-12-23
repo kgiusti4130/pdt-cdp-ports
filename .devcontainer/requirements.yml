@@ -1,0 +1,33 @@
+---
+collections:
+
+  - name: arista.avd
+    version: 5.5.0
+    source: https://galaxy.ansible.com
+
+  - name: ansible.netcommon
+    version: 6.0.0
+    source: https://galaxy.ansible.com
+
+  - name: ansible.posix
+    source: https://galaxy.ansible.com
+
+  - name: ansible.utils
+    source: https://galaxy.ansible.com
+
+  - name: community.general
+    source: https://galaxy.ansible.com
+
+  - name: netbox.netbox
+    source: https://galaxy.ansible.com
+
+  - name: fortinet.fortios
+    version: 2.3.6
+
+  - name: cisco.ios
+    version: 7.0.0
+
+  - name: cisco.asa
+    version: 6.1.0
+
+  # - name: paloaltonetworks.panos

@@ -1,0 +1,69 @@
+---
+- name: Configure ports based on CDP neighbors
+  hosts: LAKEWOOD_CISCO_SWITCHES
+  gather_facts: false
+
+  vars:
+    ansible_user: test
+    ansible_password: test
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_become: true
+    ansible_become_method: enable
+    ansible_network_os: cisco.ios.ios
+    port_profiles:
+      TRUNK_PORT:
+        - switchport mode access
+        - switchport access vlan 1
+        - spanning-tree portfast
+        - spanning-tree bpduguard enable
+        - description "my 1841 old router"
+        - switchport trunk allowed vlan all
+      VOICE_PORT:
+        - switchport mode access
+        - switchport access vlan 10
+        - switchport voice vlan 20
+        - spanning-tree portfast
+
+  tasks:
+    - name: Gather raw CDP neighbors
+      cisco.ios.ios_command:
+        commands:
+          - show cdp neighbors
+      register: cdp_raw
+
+    - name: Initialize parsed neighbors list
+      ansible.builtin.set_fact:
+        cdp_neighbors_parsed: []
+
+    - name: Parse CDP neighbors (routers + phones)
+      ansible.builtin.set_fact:
+        cdp_neighbors_parsed: "{{ cdp_neighbors_parsed + [neighbor] }}"
+      vars:
+        local_port: "{{ (item | regex_search('(Gig\\s+\\S+)', '\\1')) | first }}"
+        platform: "{{ (item | regex_search('\\s(1841|1941|CP-\\d+|IP Phone)\\s', '\\1')) | first }}"
+        neighbor:
+          local_port: "{{ local_port }}"
+          platform: "{{ platform }}"
+          profile: >-
+            {{
+              'TRUNK_PORT'
+              if platform in ['1841', '1941']
+              else 'VOICE_PORT'
+              if platform is search('CP-|IP Phone')
+              else 'IGNORE'
+            }}
+      loop: "{{ cdp_raw.stdout_lines[0] }}"
+      when:
+        - item is match('^\\S+\\s+Gig\\s+')
+
+    - name: Debug parsed neighbors
+      ansible.builtin.debug:
+        var: cdp_neighbors_parsed
+
+    - name: Configure ports based on CDP neighbor type
+      cisco.ios.ios_config:
+        parents: "interface {{ item.local_port }}"
+        lines: "{{ port_profiles[item.profile] }}"
+      loop: "{{ cdp_neighbors_parsed }}"
+      when:
+        - item.profile != 'IGNORE'

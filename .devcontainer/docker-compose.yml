@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  juice-dev01:
+    build: .
+    image: "juice-dev01:latest"
+    # restart: always
+    restart: no
+    command: ['tail', '-f', '/dev/null']
+    network_mode: "host"
+
+    environment:
+      - TZ=America/New_York
+      - DEBIAN_FRONTEND=noninteractive
+#      - ANSIBLE_CONFIG=/workspace/ansible.cfg
+      - LC_ALL=UTF-8
+    volumes:
+      - ../:/workspace

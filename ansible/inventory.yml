@@ -1,0 +1,44 @@
+# inventory.yml
+HOME_LAB:
+  children:
+    LAKEWOOD_FABRIC:
+      children:
+        LAKEWOOD_ARISTA:
+          hosts:
+            SPINE1:
+              ansible_host: 192.168.30.221
+            SPINE2:
+              ansible_host: 192.168.30.222
+            LEAF1:
+              ansible_host: 192.168.30.30
+        LAKEWOOD_CISCO_SWITCHES:
+          hosts:
+            TEST-2960s:
+              ansible_host: 192.168.30.130
+        LAKEWOOD_CISCO_ASAS:
+          hosts:
+            TEST-VPN1:
+              ansible_host: 192.168.30.131
+        LAKEWOOD_CISCO_ROUTERS:
+          hosts:
+            rtr1:
+              ansible_host: 192.168.30.132
+    SITE_B_FABRIC:
+      children:
+        SITE_B_ARISTA:
+        SITE_B_CISCO_ASAS:
+
+    HOME_LAB_ASA:
+      children:
+        LAKEWOOD_CISCO_ASAS:
+        SITE_B_CISCO_ASAS:
+
+    HOME_LAB_EOS:
+      children:
+        LAKEWOOD_ARISTA:
+        SITE_B_ARISTA:
+
+    HOME_LAB_IOS:
+      children:
+        LAKEWOOD_CISCO_SWITCHES:
+        LAKEWOOD_CISCO_ROUTERS:

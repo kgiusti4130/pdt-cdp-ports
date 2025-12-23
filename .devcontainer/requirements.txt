@@ -1,0 +1,45 @@
+ansible-core==2.16.2
+ansible-pylibssh
+#anta==0.10.0   #Use for ANTA & AVD integration
+anta==1.1.0   #Use for running ANTA standalone
+ansible-lint
+aristaproto>=0.1.1
+asgiref
+certifi
+cffi
+chardet
+click
+colorama
+cryptography>=38.0.4
+cvprac>=1.3.1
+deepmerge>=1.1.0
+future
+idna
+importlib-resources
+jsonschema>=4.5.1,<4.18
+Jinja2>=3.0.0
+MarkupSafe
+md-toc>=7.1.0
+netaddr>=0.7.19
+netmiko
+packaging
+paramiko
+psutil
+pre-commit
+pyavd==5.5.0
+pycparser
+pynetbox
+pyparsing
+pyez
+pytz
+PyYAML>=6.0.0
+requests>=2.27.0
+six
+sqlparse
+treelib>=1.5.5
+urllib3
+zipp
+
+# pip install pan-python
+# pip install pandevice
+# pip install xmltodict

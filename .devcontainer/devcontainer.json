@@ -1,0 +1,28 @@
+{
+	"name": "juice-dev01",
+	"workspaceFolder": "/workspace",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "juice-dev01",	
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"redhat.vscode-yaml",
+				"ms-python.python",
+				"github.vscode-pull-request-github",
+				"lextudio.restructuredtext",
+				"aristapublisher.eos",
+				"samuelcolvin.jinjahtml",
+				"eamodio.gitlens",
+				"PKief.material-icon-theme",
+				"johnpapa.vscode-peacock",
+				"DavidAnson.vscode-markdownlint",
+				"ms-azuretools.vscode-docker",
+				"hilleer.yaml-plus-json",
+				"docsmsft.docs-yaml",
+				"redhat.ansible",
+				"GraphQL.vscode-graphql"
+			]
+		}
+	},
+	"shutdownAction": "stopCompose"
+}
