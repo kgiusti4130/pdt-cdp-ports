@@ -3,5 +3,6 @@
         "activityBar.background": "#0486dd",
         "titleBar.activeBackground": "#d9ad32",
         "titleBar.activeForeground": "#F3FDF6"
-    }
+    },
+    "ansible.python.interpreterPath": "/usr/bin/python3"
 }
